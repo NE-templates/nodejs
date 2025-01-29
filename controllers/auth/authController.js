@@ -1,12 +1,15 @@
 import db from "../../helpers/db.js";
 import _ from "lodash";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const signin = async (req, res) => {
   const { email, password } = _.pick(req.body, ["email", "password"]);
 
   try {
-    const { rows } = db.query("SELECT * FROM users WHERE email = $1", [email]);
+    const { rows } = await db.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
 
     if (rows.length === 0) {
       return res.status(401).json({ message: "Invalid email or password" });
