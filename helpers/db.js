@@ -1,4 +1,7 @@
 import pg from 'pg';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 const pool = new pg.Pool({
   user: process.env.PGUSER,
@@ -61,3 +64,4 @@ export default {
   query,
   getClient
 };
+
